@@ -1,21 +1,15 @@
-[submodule "riscv-gnu-toolchain"]
-	path = riscv-gnu-toolchain
-	url = git@github.com:riscv-collab/riscv-gnu-toolchain.git
 [submodule "sdk"]
 	path = sdk
 	url = git@github.com:keystone-enclave/keystone-sdk.git
 [submodule "linux-keystone-driver"]
 	path = linux-keystone-driver
 	url = git@github.com:keystone-enclave/linux-keystone-driver.git
-[submodule "buildroot"]
-	path = buildroot
-	url = git@github.com:buildroot/buildroot.git
-[submodule "linux"]
-	path = linux
-	url = git@github.com:torvalds/linux.git
-[submodule "qemu"]
-	path = qemu
-	url = git@github.com:qemu/qemu.git
 [submodule "sm"]
 	path = sm
 	url = git@github.com:keystone-enclave/sm.git
+[submodule "sm-rust"]
+	path = sm-rust
+	url = git@github.com:OS-2022S-F-1/sm-rust.git
+[submodule "zCore"]
+	path = zCore
+	url = git@github.com:OS-2022S-F-1/zCore.git
