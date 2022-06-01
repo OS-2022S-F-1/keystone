@@ -29,9 +29,6 @@ image:
 core:
 	@cd zCore/zCore && make build MODE=release LINUX=1
 
-sm: CMakeLists.txt
-	@cd build && cmake .. && make bootrom && make sm
-
 run:
 	qemu-system-riscv64 $(qemu_opts)
 
