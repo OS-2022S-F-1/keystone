@@ -23,7 +23,6 @@ unsigned long sbi_sm_create_enclave(unsigned long* eid, uintptr_t create_args)
     return ret;
 
   ret = create_enclave(eid, create_args_local);
-  sbi_printf("sbi create enclave successfully!\n");
   return ret;
 }
 
