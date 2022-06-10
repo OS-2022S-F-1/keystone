@@ -93,7 +93,9 @@ int validate_and_hash_epm(hash_ctx* hash_ctx, int level,
 
       /* Validate U bit */
       if(in_user && !(*walk & PTE_U)){
-        goto fatal_bail;
+          sbi_printf("Invalid PTE_U for address %lx!\r\n", phys_addr);
+          *walk |= PTE_U;
+//          goto fatal_bail;
       }
 
       /* If the vaddr is in UTM, the paddr must be in UTM */

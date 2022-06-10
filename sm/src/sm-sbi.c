@@ -23,6 +23,7 @@ unsigned long sbi_sm_create_enclave(unsigned long* eid, uintptr_t create_args)
     return ret;
 
   ret = create_enclave(eid, create_args_local);
+  sbi_printf("sbi create enclave successfully!\n");
   return ret;
 }
 
@@ -37,6 +38,7 @@ unsigned long sbi_sm_run_enclave(struct sbi_trap_regs *regs, unsigned long eid)
 {
   regs->a0 = run_enclave(regs, (unsigned int) eid);
   regs->mepc += 4;
+  sbi_printf("mepc: %lx\r\n", regs->mepc);
   sbi_trap_exit(regs);
   return 0;
 }

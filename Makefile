@@ -20,14 +20,14 @@ qemu_opts := -smp 1 \
 	-serial file:/tmp/serial.out \
 	-kernel $(kernel_img) \
 	-initrd $(USER_IMG) \
-	-append "LOG=debug" \
+	-append "LOG=warn" \
 	-display none -nographic
 
 image:
 	@cd zCore && make riscv-image
 
 core:
-	@cd zCore/zCore && make build MODE=release LINUX=1
+	@cd zCore/zCore && make build MODE=release LINUX=1 [LOG=warn]
 
 run:
 	qemu-system-riscv64 $(qemu_opts)
