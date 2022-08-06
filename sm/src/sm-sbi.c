@@ -37,14 +37,15 @@ unsigned long sbi_sm_run_enclave(struct sbi_trap_regs *regs, unsigned long eid)
 {
   regs->a0 = run_enclave(regs, (unsigned int) eid);
   regs->mepc += 4;
-  sbi_printf("mepc: %lx\r\n", regs->mepc);
+  sbi_printf("mepc: %lx\n", regs->mepc);
+  sbi_printf("satp: %lx\n", csr_read(satp));
   sbi_trap_exit(regs);
   return 0;
 }
 
 unsigned long sbi_sm_resume_enclave(struct sbi_trap_regs *regs, unsigned long eid)
 {
-  unsigned long ret;
+    unsigned long ret;
   ret = resume_enclave(regs, (unsigned int) eid);
   if (!regs->zero)
     regs->a0 = ret;
@@ -65,6 +66,7 @@ unsigned long sbi_sm_exit_enclave(struct sbi_trap_regs *regs, unsigned long retv
 
 unsigned long sbi_sm_stop_enclave(struct sbi_trap_regs *regs, unsigned long request)
 {
+//    sbi_printf("stop from mepc %lx\n", regs->mepc);
   regs->a0 = stop_enclave(regs, request, cpu_get_enclave_id());
   regs->mepc += 4;
   sbi_trap_exit(regs);

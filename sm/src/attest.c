@@ -29,8 +29,6 @@ int validate_and_hash_epm(hash_ctx* hash_ctx, int level,
   utm_start = pmp_region_get_addr(encl->regions[idx].pmp_rid);
   utm_size = pmp_region_get_size(encl->regions[idx].pmp_rid);
 
-
-
   /* iterate over PTEs */
   for (walk=tb, i=0; walk < tb + (RISCV_PGSIZE/sizeof(pte_t)); walk += 1,i++)
   {
@@ -49,6 +47,7 @@ int validate_and_hash_epm(hash_ctx* hash_ctx, int level,
 
     /* EPM may map anything, UTM may not map pgtables */
     if(!map_in_epm && (!map_in_utm || level != 1)){
+        sbi_printf("phys addr: %lx!\n", phys_addr);
       goto fatal_bail;
     }
 
@@ -95,20 +94,23 @@ int validate_and_hash_epm(hash_ctx* hash_ctx, int level,
       if(in_user && !(*walk & PTE_U)){
           sbi_printf("Invalid PTE_U for address %lx!\r\n", phys_addr);
           *walk |= PTE_U;
-//          goto fatal_bail;
+          goto fatal_bail;
       }
 
       /* If the vaddr is in UTM, the paddr must be in UTM */
       if(va_start >= encl->params.untrusted_ptr &&
          va_start < (encl->params.untrusted_ptr + encl->params.untrusted_size) &&
          !map_in_utm){
+          sbi_printf("error 2!\n");
         goto fatal_bail;
       }
 
       /* Do linear mapping validation */
       if(in_runtime){
+//          sbi_printf("%lx %lx\n", *(unsigned long int*)phys_addr, phys_addr);
         if(phys_addr <= *runtime_max_seen){
-          goto fatal_bail;
+            sbi_printf("error 3!\n");
+            goto fatal_bail;
         }
         else{
           *runtime_max_seen = phys_addr;
@@ -116,7 +118,8 @@ int validate_and_hash_epm(hash_ctx* hash_ctx, int level,
       }
       else if(in_user){
         if(phys_addr <= *user_max_seen){
-          goto fatal_bail;
+            sbi_printf("error 4!\n");
+            goto fatal_bail;
         }
         else{
           *user_max_seen = phys_addr;
@@ -126,7 +129,7 @@ int validate_and_hash_epm(hash_ctx* hash_ctx, int level,
         // we checked this above, its OK
       }
       else{
-        //printm("BAD GENERIC MAP %x %x %x\n", in_runtime, in_user, map_in_utm);
+          sbi_printf("BAD GENERIC MAP %x %x %x\n", in_runtime, in_user, map_in_utm);
         goto fatal_bail;
       }
 

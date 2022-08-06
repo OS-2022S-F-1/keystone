@@ -4,9 +4,6 @@
 [submodule "linux-keystone-driver"]
 	path = linux-keystone-driver
 	url = git@github.com:keystone-enclave/linux-keystone-driver.git
-[submodule "sm-rust"]
-	path = sm-rust
-	url = git@github.com:OS-2022S-F-1/sm-rust.git
 [submodule "zCore"]
 	path = zCore
 	url = git@github.com:OS-2022S-F-1/zCore.git

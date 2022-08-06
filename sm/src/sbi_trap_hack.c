@@ -87,7 +87,6 @@ void sbi_trap_handler_keystone_enclave(struct sbi_trap_regs *regs)
 	ulong mcause = csr_read(CSR_MCAUSE);
 	ulong mtval = csr_read(CSR_MTVAL), mtval2 = 0, mtinst = 0;
 	struct sbi_trap_info trap;
-
 	if (misa_extension('H')) {
 		mtval2 = csr_read(CSR_MTVAL2);
 		mtinst = csr_read(CSR_MTINST);
@@ -116,7 +115,6 @@ void sbi_trap_handler_keystone_enclave(struct sbi_trap_regs *regs)
 		};
 		return;
 	}
-
 	switch (mcause) {
 	case CAUSE_ILLEGAL_INSTRUCTION:
 		rc  = sbi_illegal_insn_handler(mtval, regs);

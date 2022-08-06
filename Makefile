@@ -35,4 +35,4 @@ run:
 debugrun:
 	qemu-system-riscv64 $(qemu_opts) -s -S &
 	@sleep 1
-	riscv64-unknown-elf-gdb  $(kernel_elf) -x gdbinit -ex "target remote :1234"
+	riscv64-unknown-elf-gdb gdbinit -ex "target remote :1234"

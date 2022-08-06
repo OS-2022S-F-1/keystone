@@ -552,7 +552,6 @@ unsigned long exit_enclave(struct sbi_trap_regs *regs, enclave_id eid)
 unsigned long stop_enclave(struct sbi_trap_regs *regs, uint64_t request, enclave_id eid)
 {
   int stoppable;
-
   spin_lock(&encl_lock);
   stoppable = enclaves[eid].state == RUNNING;
   if (stoppable) {

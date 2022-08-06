@@ -101,7 +101,6 @@ int sbi_ecall_handler(struct sbi_trap_regs *regs)
 	struct sbi_trap_info trap = {0};
 	unsigned long out_val = 0;
 	bool is_0_1_spec = 0;
-
 	ext = sbi_ecall_find_extension(extension_id);
 	if (ext && ext->handle) {
 		ret = ext->handle(extension_id, func_id,

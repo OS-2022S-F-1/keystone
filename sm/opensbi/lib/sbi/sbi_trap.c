@@ -287,7 +287,6 @@ typedef void (*trap_exit_t)(const struct sbi_trap_regs *regs);
 void __noreturn sbi_trap_exit(const struct sbi_trap_regs *regs)
 {
 	struct sbi_scratch *scratch = sbi_scratch_thishart_ptr();
-
 	((trap_exit_t)scratch->trap_exit)(regs);
 	__builtin_unreachable();
 }
